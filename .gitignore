@@ -3,14 +3,15 @@
 *.idea
 *.mvn
 *.iml
+*.xml
 # Log file
 *.log
 
 # BlueJ files
 *.ctxt
-
+src/main/resources/
 # file
-pom.xml
+
 mvnw.cmd
 mvnw
 HELP.md
