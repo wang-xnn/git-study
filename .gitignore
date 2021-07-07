@@ -10,8 +10,8 @@
 # BlueJ files
 *.ctxt
 src/main/resources/
-# file
 
+# file
 mvnw.cmd
 mvnw
 HELP.md
