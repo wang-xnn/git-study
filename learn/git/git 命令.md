@@ -54,10 +54,18 @@ $ git push origin master
 ##### **如何删除远程仓库文件**
 
 ```bash
+$ git rm -r  -n --cached <文件名/文件夹>
+```
+
+删除之前可以加上参数-n，确定一下要删除的文件列表，然后去掉-n
+
+```bash
 $ git rm -r --cached <文件名/文件夹>
 ```
 
 顺便修改本地 .gitignore文件
+
+注意：如果不加`--cached`,直接从工作区和暂存区删除文件，但加了`--cached`,从暂存区删除文件，工作区保留
 
 ##### 如何修改远程仓库文件名？
 
@@ -70,15 +78,87 @@ $ git commit –m "rename"
 $ git push origin master
 ```
 
+--force 可以变为-f
+
 ##### **git 报错**
 
 1. > Git 报 无法连接到远程仓库，OpenSSL SSL_read: Connection was reset, errno 10054 的错误如何解决
 
-   > 错误原因可能是网络不稳定，连接超时造成的，可以先多次尝试，如果你试了多次还是报这个错误，建议执行下面的命令
+   ```bash
+   $ git push
+   fatal: unable to access 'https://github.com/wang-xn/git-study.git/': OpenSSL SSL_read: Connection was reset, errno 10054
+   ```
+
+   > 错误原因可能是网络不稳定，连接超时造成的，可以先多次尝试，如果你试了多次还是报这个错误，建议执行下面的命令 
 
 ```bash
-$ git config --global http.sslVerify "false"
+ $ git config --global http.sslVerify "false"
 ```
 
 这个命令用来修改设置，解除 SSL 验证。
+
+##### git log日志查看
+
+**`git log`**
+
+直接使用git log
+
+```bash
+$ git log
+commit 3ba5f355fc461f5a6496fa8133953ecf58fa5c14 (HEAD -> main, origin/main, origin/HEAD)
+Author: wangx <252279128@qq.com>
+Date:   Thu Jul 15 10:47:17 2021 +0800
+
+    rm sandbox
+
+commit f8d91ae4e331faadee1048e966ec93435cd73f67
+Author: wangx <252279128@qq.com>
+Date:   Thu Jul 15 10:11:17 2021 +0800
+
+    2021/07/15 leetcode每日一题
+...
+```
+
+参数 `--oneline  --graph  --reverse  -number  --author  --since  --before`
+
+```bash
+// --oneline 查看历史记录的简洁版本
+$ git log --oneline
+3ba5f35 (HEAD -> main, origin/main, origin/HEAD) rm sandbox
+f8d91ae 2021/07/15 leetcode每日一题
+671f828 springboot-03-web
+4801a73 2021/07/14 leetcode每日一题 二分
+// --graph 查看分支  前面增加了符号
+$ git log --oneline --graph
+* 3ba5f35 (HEAD -> main, origin/main, origin/HEAD) rm sandbox
+* f8d91ae 2021/07/15 leetcode每日一题
+* 671f828 springboot-03-web
+* 4801a73 2021/07/14 leetcode每日一题 二分
+// --reverse 逆向显示所有日志
+$ git log --oneline --reverse
+// -5  显示前5条日志
+// --author 查找指定的用户
+$ git log --oneline --author=wangxnn
+3ba5f35 (HEAD -> main, origin/main, origin/HEAD) rm sandbox
+f8d91ae 2021/07/15 leetcode每日一题
+671f828 springboot-03-web
+4801a73 2021/07/14 leetcode每日一题 二分
+// --since --before 查找指定日期  --util --after
+$ git log --oneline --before={2.days.ago} --after={2021-07-02}
+2d83e61 2021/07/12 leetcode每日一题
+a89a108 2021/07/11 leetcode周赛/每日一题
+349c50b 2021/07/10 leetcode 设计数据结构 981“
+```
+
+`git blame` 查找指定文件的修改记录，好像无法查找目录
+
+```bash
+$ git blame README.md
+^0a54c4a (star wx 2021-07-06 19:28:27 +0800 1) # git-study
+0c2c6826 (wangx   2021-07-07 20:25:05 +0800 2) 初次学习git
+0c2c6826 (wangx   2021-07-07 20:25:05 +0800 3)
+0c2c6826 (wangx   2021-07-07 20:25:05 +0800 4) 学习的课程为b站狂神讲git
+0c2c6826 (wangx   2021-07-07 20:25:05 +0800 5) b站链接：https://www.bilibili.com/video/BV1FE411P7B3?from=search&seid=10353468027444860746
+
+```
 
