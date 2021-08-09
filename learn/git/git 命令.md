@@ -162,3 +162,26 @@ $ git blame README.md
 
 ```
 
+
+
+git修改未push已提交的commit
+
+```bash
+$ git commit --amend
+```
+
+git修改最近一次已经push的commit
+
+```bash 
+$ git commit --amend  //修改commit后
+$ git push -f         //强制提交
+```
+
+git撤销commit
+
+```bash
+$ git reset --soft HEAD~1 //不删除工作空间改动代码，撤销commit，不撤销git add . 
+$ git reset --hard HEAD~1 //删除工作空间改动代码，撤销commit，撤销git add . 
+$ git reset --mixed HEAD~1//不删除工作空间改动代码，撤销commit，并且撤销git add . 操作,不加mixed一样，这是默认选项
+```
+
